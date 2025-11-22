@@ -42,39 +42,8 @@ Think of it as having a junior analyst working 24/7, except they never sleep, ne
 
 Signl uses the **E2B + MCP architecture** to create truly autonomous agents:
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                      Your Request                            │
-│          "Monitor Pinecone for pricing changes"              │
-└────────────────────┬────────────────────────────────────────┘
-                     │
-                     ▼
-         ┌───────────────────────┐
-         │   Hono API Server     │
-         │   (server.ts)         │
-         └───────────┬───────────┘
-                     │
-                     ▼
-         ┌───────────────────────┐
-         │  Groq LLM Director    │
-         │  (GPT OSS 120B)       │
-         └───────────┬───────────┘
-                     │
-                     ▼
-         ┌───────────────────────────────────┐
-         │      E2B Sandbox (signl-v1)       │
-         │  ┌─────────────────────────────┐  │
-         │  │  MCP Gateway with:          │  │
-         │  │  • Exa (web search)         │  │
-         │  │  • Perplexity (reasoning)   │  │
-         │  │  • Resend (email)           │  │
-         │  │  • xAI Grok (social)        │  │
-         │  └─────────────────────────────┘  │
-         └───────────────────────────────────┘
-                     │
-                     ▼
-         📧 Intel Report in Your Inbox
-```
+<img width="1024" height="572" alt="image" src="https://github.com/user-attachments/assets/39201b35-5bf7-4406-853c-d731a714cc83" />
+
 
 ### Why This Matters (Hackathon Context)
 
@@ -85,18 +54,21 @@ Signl uses the **E2B + MCP architecture** to create truly autonomous agents:
 
 ------
 
-## 🎬 Demo: One-Off "War Room" Mission
+## 🎬 Demo: Trigger a Mission
+
+1. Start the server:
 
 ```bash
-npm run start  # Start the API server
+npm start
 ```
 
-Then trigger a mission:
+2. Open a new terminal and run this CURL command to trigger a **5-minute test mission**:
 
 ```bash
-curl -X POST http://localhost:4000/api/mission/trigger \
+curl -X POST http://localhost:4000/api/signl/trigger \
   -H "Content-Type: application/json" \
   -d '{
+    "duration": 5,
     "identity": {
       "fullName": "Your Name",
       "email": "you@company.com",
@@ -153,6 +125,7 @@ curl -X POST http://localhost:4000/api/mission/trigger \
     }
   }'
 ```
+
 
 **What happens:**
 
